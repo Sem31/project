@@ -11,16 +11,20 @@ def home(request):
 
 def user_registration(request):
     form = CustomUserCreationForm(request.POST or None, request.FILES or None)
+    
     if request.method == 'POST':
-        print("hi kamlesh")
         if form.is_valid():
-            print("buy kamlesh")
             form.save()
             messages.success(request, 'Successfully registerd')
             return redirect('/')
         # If the request params is valid save the data else return form with error
-    return render(request, 'pakhi-web/signin.html', {'form': form})
+    return render(request, 'registration/registration.html', {'form': form})
 
+@login_required(login_url='/accounts/login')
 def user_profile(request):
-    return render(request, 'pakhi-web/signin.html', {'user': request.user})
+    return render(request, 'pakhi-web/user_profile.html', {'user': request.user})
+
+
+
+    
 
